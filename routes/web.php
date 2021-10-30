@@ -7,6 +7,7 @@ use App\Http\Controllers\CRUDs\RoleController;
 use App\Http\Controllers\CRUDs\UserController;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TestController;
 
 // -----------------------------------------------------------------------------------
 
@@ -15,6 +16,8 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/newstock', [TestController::class, 'index'])->name('newstock');
+Route::get('/detail', [TestController::class, 'show'])->name('detail');
 
 Auth::routes();
 
