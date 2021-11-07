@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 " >            
-          <div class="card" style="width: 500px;">
+          <div class="card" style="width: 400px;">
               <img class="card-img-top" src="/img/test-shirt/1.png" width="300px" alt="Card image cap">
-              <div class="card-body center">
+              <div class="card-body ">
                 @can('product_add')
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addModal" >เพิ่มจำนวนสินค้า</a>
+                <a href="#" class="btn btn-primary col text-center my-1 " data-toggle="modal" data-target="#addModal" >เพิ่มจำนวนสินค้า</a>
                 <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content " >
@@ -64,7 +64,7 @@
                 </div>
                 @endcan
 
-                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#removeModal">ลดจำนวนสินค้า</a>
+                <a href="#" class="btn btn-danger col text-center" data-toggle="modal" data-target="#removeModal">ลดจำนวนสินค้า</a>
                 <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModal" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
