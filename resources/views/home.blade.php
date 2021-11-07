@@ -9,13 +9,18 @@
              
                      {{-- @foreach ($data[0] as $item)  --}}
                         {{-- @if ($item->status_approve == true) --}}
-                            <div class="card col-4" style="width: 18rem;">
-                                <a href="/detail"><img class="card-img-top" src="/img/test-shirt/1.png" alt="Card image cap"></a>
+                        @for ($i = 0; $i < 10; $i++)
+                            <div class="card col-3 ">
+                                <a href="/detail"><img class="card-img-top" src="/img/test-shirt/1.png"  alt="Card image cap"></a>
                                 <div class="card-body">
-                                    <p style="font-size: 18px;font-family: Sans-serif;font-style: normal;font-weight: bold;">รหัส 001</p>
-                                    <p style="font-size: 14px;font-style: normal;">จำนวนคงเหลือ {{50}} ตัว</p>
+                                    <p style="font-size: 16px;font-family: Sans-serif;font-style: normal;">
+                                        <b>รหัส 001</b>
+                                        <br>
+                                        จำนวนคงเหลือ {{50}} ตัว
+                                    </p>
                                 </div>
-                              </div>
+                            </div>
+                        @endfor
                         {{-- @endif --}}
                     {{-- @endforeach --}}
                 </div>
