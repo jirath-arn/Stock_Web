@@ -51,9 +51,12 @@
                     <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('รูปภาพ') }}</label>
                             <div class="col-md-6">
-                                <input type="file" class="custom-file-input" id="image">
-                                <label class="custom-file-label" for="image">อัพโหลดรูปภาพ</label>
+                                {{-- <input type="file" class="custom-file-input" id="image"> --}}
+                                {{-- <label class="custom-file-label" for="image">อัพโหลดรูปภาพ</label> --}}
+                                <input type="file" id="myFile" name="filename">
+                                
                             </div>
+                            
                         
                     </div>
                     
@@ -97,4 +100,5 @@
     }   
     
 </script>
+
 @endsection
