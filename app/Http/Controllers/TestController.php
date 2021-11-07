@@ -19,4 +19,9 @@ class TestController extends Controller
     {
         return view('detail');
     }
+    public function history()
+    {
+        return view('admin.history');
+    }
+    
 }
