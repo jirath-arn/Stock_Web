@@ -25,7 +25,7 @@
             display: inline-block;
             padding: 0 20px;
             height: auto;
-            width: 300px;
+            width: 100%;
             font-size: 13px;
             line-height: 30px;
             border-radius: 5px;

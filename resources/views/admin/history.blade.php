@@ -14,16 +14,23 @@
                             </svg>
                     
                     </h5>
-                    <div id="table1" class="mt-3" style=" width:87%; margin: auto; height:400px; overflow-y: scroll;  border-style: solid; border-width: medium; ">
+                    <div class="row">
+                        <div class="col-9"></div>
+                        <div class="col-3 ">
+                            <input type="text" id="search" class="form-control" onkeyup="Search()" placeholder="ค้นหา รหัสสินค้า" title="ค้นหา">
+                    </div>
+                        
+                    </div>
+                    <div id="table1" class="mt-3" style=" width:100%; margin: auto; height:400px; overflow-y: scroll;  border-style: solid; border-width: medium; ">
                         <div class="col" style=" margin: auto;" > 
                             @for ($i = 0; $i < 20; $i++)
 
                                 <p class="chip" >
                                     <b>{{"USER"}}</b> 
                                     <br>
-                                    {{"รหัส 001 >>  สีแดง:10 , สีเหลือง:10 , สีดำ:15"}}
+                                    รหัส {{$i+1}} >>  สีแดง:10 , สีเหลือง:10 , สีดำ:15
                                     <br>
-                                    {{"วันที่ 07 / 11 / 2021 เวลา 14:00 น."}}
+                                    <i>วันที่ {{$i+1}} / 11 / 2021 เวลา 14:00 น.</i>
                                 </p>
                                 
                             @endfor
@@ -34,5 +41,28 @@
         </div>
     </div>
 </div>
-
+<script>
+    function Search() {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('search');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("table1");
+      li = ul.getElementsByTagName("p");
+      
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("i")[0];
+        
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+          
+        } else {
+          
+          li[i].style.display = "none";
+        }
+      }
+    }
+</script>
 @endsection

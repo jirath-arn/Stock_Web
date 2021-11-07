@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 " >            
-          <div class="card" style="width: 400px;">
-              <img class="card-img-top" src="/img/test-shirt/1.png" width="300px" alt="Card image cap">
+          <div class="card" style="width: 100%;">
+              <img class="card-img-top" src="/img/test-shirt/1.png"  alt="Card image cap">
               <div class="card-body ">
                 @can('product_add')
                 <a href="#" class="btn btn-primary col text-center my-1 " data-toggle="modal" data-target="#addModal" >เพิ่มจำนวนสินค้า</a>
