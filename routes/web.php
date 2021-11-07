@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/newstock', [TestController::class, 'index'])->name('newstock');
+Route::get('/history', [TestController::class, 'history'])->name('history');
 Route::get('/detail', [TestController::class, 'show'])->name('detail');
 
 Auth::routes();
