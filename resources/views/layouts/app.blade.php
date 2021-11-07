@@ -20,23 +20,22 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        /* #email{
-                    position: absolute;
-                    width: 633px;
-                    height: 52px;
-                   
-                } */
-
-        .center {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-
+        .chip {
+            display: inline-block;
+            padding: 0 20px;
+            height: auto;
+            width: 300px;
+            font-size: 13px;
+            line-height: 30px;
+            border-radius: 5px;
+            border: 1px solid rgb(196, 231, 255);
+            background-color: #4dc0b5;
+            box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.2);
         }
         
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    
 </head>
 
 <body>
@@ -82,6 +81,9 @@
                         @can('product_add')
                         <li class="nav-item">
                             <a class="nav-link" href="/newstock">{{ __('เพิ่มสินค้า') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/history">{{ __('ประวัติ') }}</a>
                         </li>
                         @endcan
 
