@@ -9,12 +9,13 @@
              
                      {{-- @foreach ($data[0] as $item)  --}}
                         {{-- @if ($item->status_approve == true) --}}
-                            <div class = "card col-3 d-flex ftco-animate fadeInUp ftco-animated  " style="width:300px; ">
-                                <a  href="/detail"><img src="/img/test-shirt/1.png"  alt="Card image" height="300px"></a>
-                                
-                                <p style="font-size: 18px;font-family: Sans-serif;font-style: normal;font-weight: bold;">รหัส 001</p>
-                                <p style="font-size: 14px;font-style: normal;">จำนวนคงเหลือ {{50}} ตัว</p>
-                            </div>
+                            <div class="card col-4" style="width: 18rem;">
+                                <a href="/detail"><img class="card-img-top" src="/img/test-shirt/1.png" alt="Card image cap"></a>
+                                <div class="card-body">
+                                    <p style="font-size: 18px;font-family: Sans-serif;font-style: normal;font-weight: bold;">รหัส 001</p>
+                                    <p style="font-size: 14px;font-style: normal;">จำนวนคงเหลือ {{50}} ตัว</p>
+                                </div>
+                              </div>
                         {{-- @endif --}}
                     {{-- @endforeach --}}
                 </div>
