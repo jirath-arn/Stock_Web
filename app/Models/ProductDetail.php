@@ -13,6 +13,7 @@ class ProductDetail extends Model
     protected $fillable = [
         'product_code_name',
         'product_color',
+        'product_size',
         'balance_amount',
         'total_amount',
     ];

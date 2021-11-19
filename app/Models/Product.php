@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Image;
 use App\Models\ProductDetail;
+use App\Models\Category;
 
 class Product extends Model
 {
@@ -13,7 +14,9 @@ class Product extends Model
 
     protected $fillable = [
         'code_name',
+        'category_id',
         'product_name',
+        'wholesale_price',
     ];
 
     public function product_details()
@@ -24,5 +27,10 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

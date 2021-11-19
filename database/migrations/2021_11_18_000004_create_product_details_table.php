@@ -20,6 +20,7 @@ class CreateProductDetailsTable extends Migration
             $table->foreign('product_code_name')->references('code_name')->on('products');
 
             $table->string('product_color', 30);
+            $table->string('product_size', 5);
             $table->integer('balance_amount')->unsigned();
             $table->integer('total_amount')->unsigned();
             $table->timestamps();
