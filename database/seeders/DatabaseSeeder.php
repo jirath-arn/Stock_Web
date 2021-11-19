@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             HistoryAuthenticationsTableSeeder::class,
             HistoryTransactionsTableSeeder::class,
+            CategoriesTableSeeder::class,
             ProductsTableSeeder::class,
             ProductDetailsTableSeeder::class,
             ImagesTableSeeder::class
