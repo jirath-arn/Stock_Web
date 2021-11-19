@@ -11,8 +11,9 @@
                     <div class="col-9">
                         <div id="myBtnContainer">
                             <button class="btn active btn-primary" onclick="filterSelection('all')"> ทั้งหมด</button>
-                            <button class="btn btn-info" onclick="filterSelection('เสื้อยืด')"> เสื้อยืด</button>
-                            <button class="btn btn-info" onclick="filterSelection('กางเกง')"> กางเกง</button>
+                            @foreach ($data[2] as $item)
+                                <button class="btn btn-info" onclick="filterSelection('{{$item->title}}')"> {{$item->title}}</button>
+                            @endforeach
                         </div>
                     </div>
 
@@ -22,42 +23,26 @@
                     
                 </div>
                 
-                <div id="listProduct" class="row no-gutters d-flex mt-5">
-                    
-                       
-                       
-                        <div class="filterDiv card col-3 เสื้อยืด" id="card">
-                            <div class="card-body">
-                                <a href="/detail"><img class="card-img-top" src="/img/test-shirt/5.jpg" height="220px"   alt="Card image cap"></a>
-                                <p class="mt-2" style="font-size: 16px;font-family: Sans-serif;font-style: normal;"> 
-                                    <b>รหัส {{1}} <b >เสื้อยืด</b></b>
-                                    <br>
-                                    จำนวนคงเหลือ {{50}} ตัว
-                                </p>
-                            </div>
-                        </div>
-                        
-                        
-                      
-                     {{-- @foreach ($data[0] as $item)  --}}
-                        {{-- @if ($item->status_approve == true) --}}
-                        @for ($i = 0; $i < 4; $i++)
-                            <div class="filterDiv card col-3 กางเกง" id="card">
-                                <div class="card-body">
-                                    <a href="/detail"><img class="card-img-top" src="/img/test-shirt/{{$i+1}}.png"  height="220px"   alt="Card image cap"></a>
+                <div id="listProduct"  class="row  d-flex mt-5" >
+
+                     @foreach ($data[0] as $key=>$item)
+                            <div class="filterDiv card col-3 {{$item->category->title}}">
+                                <div class="card-body">                        
+                                    <a href="/detail"><img class="card-img-top" src="/img/test-shirt/{{$data[3][$key]}}"  height="220px"   ></a>
                                     <p class="mt-2" style="font-size: 16px;font-family: Sans-serif;font-style: normal;"> 
-                                        <b>รหัส {{$i+1}} <b >เสื้อยืด</b></b>
+                                        <b>รหัส {{$item->code_name}}</b>
                                         <br>
-                                        จำนวนคงเหลือ {{($i+1)*50}} ตัว
+                                        จำนวนคงเหลือ {{$data[1][$key]}} ตัว
+                                       
                                     </p>
                                 </div>
+
+                                
                             </div>
-                        @endfor
-                        
-                          
-                          
-                        {{-- @endif --}}
-                    {{-- @endforeach --}}
+                       
+                    @endforeach
+                    
+
                 </div>
             </div>
         </div>
