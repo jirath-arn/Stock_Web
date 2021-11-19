@@ -20,6 +20,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendor/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+    
     <style>
         .chip {
             display: inline-block;
@@ -41,13 +43,7 @@
         .show {
           display: block;
         }
-        .img {
-            display: block;
-            max-width:220px;
-            max-height:220px;
-            width: auto;
-            height: auto;
-        }
+        
 
         </style>
     
@@ -57,7 +53,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white ">
             <div class="container mt-3">
-                <img id="logo" href="{{ url('/home') }}" src="/img/logo.png" height="80px" alt="logo" title="logo">
+                <img id="logo" href="{{ url('/home') }}" src="/img/logo.png" height="40px" alt="logo" title="logo">
 
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
