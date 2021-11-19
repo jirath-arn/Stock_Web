@@ -12,7 +12,7 @@
                         <div id="myBtnContainer">
                             <button class="btn active btn-primary" onclick="filterSelection('all')"> ทั้งหมด</button>
                             @foreach ($data[2] as $item)
-                                <button class="btn btn-info" onclick="filterSelection('{{$item->title}}')"> {{$item->title}}</button>
+                                <button class="btn btn-secondary" onclick="filterSelection('{{$item->title}}')"> {{$item->title}}</button>
                             @endforeach
                         </div>
                     </div>
@@ -23,10 +23,10 @@
                     
                 </div>
                 
-                <div id="listProduct"  class="row  d-flex mt-5" >
+                <div id="listProduct"  class="row d-flex mt-5" >
 
                      @foreach ($data[0] as $key=>$item)
-                            <div class="filterDiv card col-3 {{$item->category->title}}">
+                            <div class="filterDiv card col-xl-3 col-lg-4 col-sm-6  {{$item->category->title}}">
                                 <div class="card-body">                        
                                     <a href="/detail"><img class="card-img-top" src="/img/test-shirt/{{$data[3][$key]}}"  height="220px"   ></a>
                                     <p class="mt-2" style="font-size: 16px;font-family: Sans-serif;font-style: normal;"> 
