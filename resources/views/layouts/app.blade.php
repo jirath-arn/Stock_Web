@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Stock Web') }}</title>
+    <title>Stock Web</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -34,8 +34,22 @@
             box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.2);
         }
         
-    </style>
-    
+        .filterDiv {
+          
+          display: none;
+        }
+        .show {
+          display: block;
+        }
+        .img {
+            display: block;
+            max-width:220px;
+            max-height:220px;
+            width: auto;
+            height: auto;
+        }
+
+        </style>
     
 </head>
 
@@ -82,6 +96,9 @@
                         @can('product_add')
                         <li class="nav-item">
                             <a class="nav-link" href="/newstock">{{ __('เพิ่มสินค้า') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/newcategory">{{ __('เพิ่มหมวดหมู่') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/history">{{ __('ประวัติ') }}</a>
