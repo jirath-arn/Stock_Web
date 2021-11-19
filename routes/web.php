@@ -7,7 +7,7 @@ use App\Http\Controllers\CRUDs\RoleController;
 use App\Http\Controllers\CRUDs\UserController;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\NavbarController;
 
 // -----------------------------------------------------------------------------------
 
@@ -16,9 +16,10 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/newstock', [TestController::class, 'index'])->name('newstock');
-Route::get('/history', [TestController::class, 'history'])->name('history');
-Route::get('/detail', [TestController::class, 'show'])->name('detail');
+Route::get('/newstock', [NavbarController::class, 'index'])->name('newstock');
+Route::get('/newcategory', [NavbarController::class, 'category'])->name('newcategory');
+Route::get('/history', [NavbarController::class, 'history'])->name('history');
+Route::get('/detail', [NavbarController::class, 'show'])->name('detail');
 
 Auth::routes();
 

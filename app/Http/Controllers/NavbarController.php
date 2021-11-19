@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class NavbarController extends Controller
 {
     /**
      * Show the application dashboard.
@@ -22,6 +22,10 @@ class TestController extends Controller
     public function history()
     {
         return view('admin.history');
+    }
+    public function category()
+    {
+        return view('admin.newCategory');
     }
     
 }
