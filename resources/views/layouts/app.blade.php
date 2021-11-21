@@ -94,7 +94,7 @@
                             <a class="nav-link" href="/newstock">{{ __('เพิ่มสินค้า') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/newcategory">{{ __('เพิ่มหมวดหมู่') }}</a>
+                            <a class="nav-link" href="{{route('categories.index')}}">{{ __('เพิ่มหมวดหมู่') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/history">{{ __('ประวัติ') }}</a>

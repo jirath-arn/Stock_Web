@@ -13,7 +13,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        // abort_if(Gate::denies('category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $data = Category::all();;
+         return view('admin.newCategory', compact('data'));
     }
 
     public function show(Category $category)
@@ -28,21 +29,39 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        // Code..
+        $request->validate([
+            'category_name' => '',
+        ]);
+
+        $category = new Category();
+        $category->title = $request->category_name;
+
+        $category->save();
+        return redirect()->route('categories.index');
     }
 
     public function edit(Category $category)
     {
-        // abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $data = Category::find($category);
+        return view('admin.editCategory',compact('data'));
     }
 
     public function update(Request $request, $id)
     {
-        // Code..
+        $request->validate([
+            'new_category_name' => "",
+            
+        ]);
+        
+        $userEdit = Category::find($id);
+        $userEdit->title = $request->new_category_name;
+        $userEdit->save();
+
+        return redirect()->route('categories.index');
     }
 
     public function destroy(Category $category)
     {
-        // abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //
     }
 }
