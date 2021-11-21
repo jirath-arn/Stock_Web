@@ -30,11 +30,11 @@
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col col-md-12" style="margin-top: 5%;">
+            <div class="col col-8 " style="margin-top: 5%;">
                 {{-- Logo --}}
                 <div class="row text-center">
-                    <div class="col col-md-12">
-                        <img src="{{ asset('img/logo.png') }}" height="185" alt="Logo">
+                    <div class="col col-12">
+                        <img src="{{ asset('img/logo.png') }}" width="100%" alt="Logo">
                     </div>
                 </div>
 
