@@ -8,7 +8,7 @@
                 <h2>สร้างรายการสินค้าใหม่</h2>
 
     
-            <form  class="mt-3" method="POST" action="{{route('products.store')}}"  enctype="multipart/form-data" >
+            <form  class="mt-3" method="POST" action="{{route('products.store')}}"  enctype="multipart/form-data">
                 @csrf
                 <section>
                 <div class="panel panel-header">
@@ -100,7 +100,7 @@
                                 <tr>
 
                                     <td>
-                                        <input type="file" id="image" name="image"  accept="image/png, image/jpeg, image/jpg" required >
+                                        <input type="file" id="image" name="image" class="form-control"  accept=" image/png, image/jpeg, image/jpg" value="{{old('file')}}" required >
                                     </td>
                                 
                                 
