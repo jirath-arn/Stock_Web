@@ -100,7 +100,7 @@
                                 <tr>
 
                                     <td>
-                                        <input type="file" id="image" name="image" class="form-control"  accept=" image/png, image/jpeg, image/jpg" value="{{old('file')}}" required >
+                                        <input type="file" id="image" name="image" class="form-control"  accept=" image/png, image/jpeg, image/jpg" value="{{old('image')}}" required >
                                     </td>
                                 
                                 
