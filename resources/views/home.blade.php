@@ -28,7 +28,10 @@
                      @foreach ($data[0] as $key=>$item)
                             <div class="filterDiv card col-xl-3 col-lg-4 col-sm-6  {{$item->category->title}}">
                                 <div class="card-body">                        
-                                    <a href="/detail"><img class="card-img-top" src="/img/test-shirt/{{$data[3][$key]}}"  height="220px"   ></a>
+                                    <a  href="{{ route('products.show', $item->code_name) }}">
+                                        {{-- <img class="card-img-top" src="/img/test-shirt/{{$data[3][$key]}}"  height="220px"   > --}}
+                                        <img class="card-img-top" src="/img/test-shirt/1.png"  height="220px"   >
+                                    </a>
                                     <p class="mt-2" style="font-size: 16px;font-family: Sans-serif;font-style: normal;"> 
                                         <b>รหัส {{$item->code_name}}</b>
                                         <br>
