@@ -13,6 +13,7 @@ use App\Models\ProductDetail;
 use App\Models\Category;
 use PhpParser\Node\Stmt\Foreach_;
 
+
 class ProductController extends Controller
 {
     public function index()
@@ -72,7 +73,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {   
         $data=$request->all();
-      
+        
+        // $img = file_get_contents($request->image);
+        // dd(base64_encode($img));
+        // data:image/jpeg;base64,
         $request->validate([
             'product_name' => 'required',
             'code_name' => 'required',
@@ -110,6 +114,8 @@ class ProductController extends Controller
         $image->product_code_name = $request->code_name;
         
         $file = $request->image;
+        
+        
         $extension = $file->getClientOriginalExtension();
         $filename = time().'.'.$extension;
             
