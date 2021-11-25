@@ -3,9 +3,21 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6 " >            
-          <div class="card" style="width: 100%;">
-              <img class="card-img-top" src="/img/test-shirt/1.png"  alt="Card image cap">
+        <div class="col-md-4 " >            
+          <div class="card" style=" max-height: 50px;">
+             
+            @foreach ($data[3] as $item)
+                <img class="card-img-top" src="/img/test-shirt/{{$item->filename}}"    alt="Card image cap">
+            @endforeach
+            
+            @foreach ($data[3] as $key=>$item)
+             <div class="filterDiv card col-xl-3 col-lg-4 col-sm-6  ">
+                 <div class="card-body">                        
+                      <img class="card-img-top" src="/img/test-shirt/{{$item->filename}}" height="220px"   >
+                 </div>
+             </div>
+        
+            @endforeach
               <div class="card-body ">
                 @can('product_add')
                 <a href="#" class="btn btn-primary col text-center my-1 " data-toggle="modal" data-target="#addModal" >เพิ่มจำนวนสินค้า</a>
@@ -125,51 +137,33 @@
           
         
         <div class="col-md-6">     
-          <label>จำนวนคงเหลือทั้งหมด {{60}} ตัว</label>
+          
+              <label>จำนวนคงเหลือทั้งหมด {{$data[2]}} ตัว</label>
             
             <table class="table table-success">
               <thead>
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">สีของสินค้า</th>
+                  <th scope="col">ไซด์</th>
                   <th scope="col">จำนวนคงเหลือ</th>
                   
                 </tr>
               </thead>
               <tbody>
+                @foreach ($data[0] as $key=>$item)
                 <tr>
-                  <th scope="row">1</th>
-                  <td>สีแดง</td>
-                  <td>10</td>
+                  <th scope="row">{{$key+1}}</th>
+                  <td>{{$item->product_color}}</td>
+                  <td>{{$item->product_size}}</td>
+                  <td>{{$item->balance_amount}}</td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>สีเหลือง</td>
-                  <td>15</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>สีม่วง</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>สีดำ</td>
-                  <td>10</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>สีชมพูอ่อน</td>
-                  <td>15</td>
-                </tr>
-                <tr>
-                  <th scope="row">6</th>
-                  <td>สีเนื้อ</td>
-                  <td>5</td>
-                </tr>
+                @endforeach
               </tbody>
             </table>
-            <label  style="display: block;text-align: right">จำนวนเดิมทั้งหมด {{100}} ตัว</label>
+            <label  style="display: block;text-align: right">จำนวนเดิมทั้งหมด {{$data[1]}} ตัว</label>
+          
+          
         </div>
                       
                       
@@ -181,7 +175,7 @@
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script  type="text/javascript">
-    
+  
     let = count_color = 0;
     $(function () {
        
