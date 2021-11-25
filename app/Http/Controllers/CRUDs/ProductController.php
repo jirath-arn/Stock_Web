@@ -72,7 +72,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {   
         $data=$request->all();
-        
+      
         $request->validate([
             'product_name' => 'required',
             'code_name' => 'required',
@@ -81,18 +81,21 @@ class ProductController extends Controller
             'color.*' => '',
             'size' => '',
             'quantity' => '',
+            'image' => ''
         ]);
         
         
-
         
+        dd($request->image);
         $product = new Product();
         $product->code_name = $request->code_name;
         $product->product_name = $request->product_name;
         $product->category_id = $request->category;
         $product->wholesale_price = $request->price;
         $product->save();
-
+        
+        
+        
         for($i = 0; $i < count($request->color); $i++){
             $product_detail = new ProductDetail();
             $product_detail->product_code_name = $request->code_name;
@@ -100,9 +103,26 @@ class ProductController extends Controller
             $product_detail->product_size = $request->size[$i];
             $product_detail->balance_amount = $request->quantity[$i];
             $product_detail->total_amount = $request->quantity[$i];
-            $product_detail->save();
+            
         }
-
+       
+        $image = new Image();
+        $image->product_code_name = $request->code_name;
+        
+        $file = $request->image;
+        $extension = $file->getClientOriginalExtension();
+        $filename = time().'.'.$extension;
+            
+        $file->move('img/test-shirt/', $filename);
+        $image->filename = $filename;
+            
+        $image->path = "img/test-shirt/".$filename;
+        $image->size = 0;
+            
+        
+        $product->save();
+        $product_detail->save();
+        $image->save();
         
         return redirect()->route('products.index');
     }

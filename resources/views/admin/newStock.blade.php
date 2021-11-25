@@ -100,7 +100,7 @@
                                 <tr>
 
                                     <td>
-                                        <input  type="file" id="myFile" name="filename">
+                                        <input type="file" id="image" name="image"  accept="image/png, image/jpeg, image/jpg" required >
                                     </td>
                                 
                                 
@@ -166,7 +166,7 @@
         var tr='<tr>'+
         '<td><input type="text" name="color[]" class="form-control" required=""></td>'+
         '<td><select id="size" name="size[]"  class="form-select " aria-label="Default select example" >'+
-                     '<option value="Freesize" selected>ฟรีไซด์</option>'+
+                     '<option value="-" selected>ฟรีไซด์</option>'+
                      '<option value="S">S</option>'+
                      '<option value="M">M</option>'+
                      '<option value="L">L</option>'+
