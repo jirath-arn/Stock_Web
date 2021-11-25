@@ -12,7 +12,10 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -91,7 +94,7 @@
  
                         @can('product_add')
                         <li class="nav-item">
-                            <a class="nav-link" href="/newstock">{{ __('เพิ่มสินค้า') }}</a>
+                            <a class="nav-link" href="{{route('products.create')}}">{{ __('เพิ่มสินค้า') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('categories.index')}}">{{ __('เพิ่มหมวดหมู่') }}</a>
