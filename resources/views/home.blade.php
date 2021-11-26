@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="col-3 ">
-                        <input type="text" id="search" class="form-control" onkeyup="Search()" placeholder="ค้นหา รหัสสินค้า" title="ค้นหา">
+                        <input type="text" id="search" class="form-control" onkeyup="Search()" placeholder="ค้นหา สินค้า" title="ค้นหา">
                     </div>
                     
                 </div>
@@ -33,7 +33,7 @@
                                         
                                     </a>
                                     <p class="mt-2" style="font-size: 16px;font-family: Sans-serif;font-style: normal;"> 
-                                        <b>รหัส {{$item->code_name}}</b>
+                                        <b>รหัส {{$item->code_name}} {{$item->product_name}} </b>
                                         <br>
                                         จำนวนคงเหลือ {{$data[1][$key]}} ตัว
                                        
