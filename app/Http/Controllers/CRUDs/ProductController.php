@@ -72,7 +72,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {   
-        $data=$request->all();
+        // $data=$request->all();
         
         // $img = file_get_contents($request->image);
         // dd(base64_encode($img));
@@ -82,21 +82,23 @@ class ProductController extends Controller
             'code_name' => 'required',
             'category' => 'required',
             'price' => 'required',
-            'color.*' => '',
+            'image' => '',
+            'color' => '',
             'size' => '',
             'quantity' => '',
-            'image' => ''
+            'base64' => ''
         ]);
         
         
         
-        dd($request->image);
+        dd(strlen($request->base64));
+
         $product = new Product();
         $product->code_name = $request->code_name;
         $product->product_name = $request->product_name;
         $product->category_id = $request->category;
         $product->wholesale_price = $request->price;
-        $product->save();
+        // $product->save();
         
         
         
@@ -109,26 +111,29 @@ class ProductController extends Controller
             $product_detail->total_amount = $request->quantity[$i];
             
         }
-       
+
         $image = new Image();
         $image->product_code_name = $request->code_name;
-        
-        $file = $request->image;
-        
-        
-        $extension = $file->getClientOriginalExtension();
-        $filename = time().'.'.$extension;
+
+        if($request->hasFile($request->image)){
+            $file = $request->image;
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $image->filename = $filename;
             
+        }else{
+            $filename =' ';
+        }
+        
+        $image->size = 0;    
         $file->move('img/test-shirt/', $filename);
-        $image->filename = $filename;
-            
-        $image->path = "img/test-shirt/".$filename;
-        $image->size = 0;
             
         
-        $product->save();
-        $product_detail->save();
-        $image->save();
+            
+        
+        
+        // $product_detail->save();
+        // $image->save();
         
         return redirect()->route('products.index');
     }

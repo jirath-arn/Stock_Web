@@ -14,9 +14,10 @@ use App\Http\Controllers\NavbarController;
 
 // -----------------------------------------------------------------------------------
 
-// Route::get('/', function () {
-//     return view('auth/login');
-// });
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
 
 Route::redirect('/', '/login');
 

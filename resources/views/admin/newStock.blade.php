@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class=" col-12 ">
            
                 <h2>สร้างรายการสินค้าใหม่</h2>
 
@@ -17,14 +17,14 @@
                         <div class="col-xl-3 col-lg-3 col-sm-3">
                             <div class="form-group">
                                 <label for="name" class="text-md-right">{{ __('ชื่อรายการสินค้า') }}</label>
-                                <input id="product_name" type="text" class="form-control " name="product_name" value="{{ old('product_name') }}" >
+                                <input id="product_name" type="text" class="form-control " name="product_name" value="{{ old('product_name') }}" required >
                             </div>
                         </div>
 
                         <div class="col-xl-3 col-lg-3 col-sm-3">
                             <div class="form-group">
                                 <label for="name" class="  text-md-right">{{ __('ชื่รหัสสินค้า') }}</label>
-                                <input id="code_name" type="text" class="form-control " name="code_name" value="{{ old('code_name') }}" >
+                                <input id="code_name" type="text" class="form-control " name="code_name" value="{{ old('code_name') }}" required>
                             </div>
                         </div>
 
@@ -44,7 +44,7 @@
                         <div class="col-xl-3 col-lg-3 col-sm-3">
                             <div class="form-group">
                                 <label for="name" class="text-md-right">{{ __('ราคาส่งของสินค้า') }}</label>
-                                <input id="price" type="number" class="form-control " name="price" value="{{ old('price') }}" >
+                                <input id="price" type="number" class="form-control " name="price" value="{{ old('price') }}" required>
                             </div>
                         </div>
 
@@ -72,7 +72,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input type="text" name="color[]" class="form-control" required=""></td>
+                                    <td><input type="text" name="color[]" class="form-control" required></td>
                                     <td>
                                         <select id="size" name="size[]"  class="form-select " aria-label="Default select example" >
                                             <option value="-" selected>ฟรีไซด์</option>
@@ -83,7 +83,7 @@
                                         </select>
                                     </td>   
                                     
-                                    <td><input type="number" name="quantity[]" class="form-control quantity" required=""></td>
+                                    <td><input type="number" name="quantity[]" class="form-control quantity" required></td>
                                    
                                     <td>
                                         <a href="#" class="btn btn-danger remove ">
@@ -98,26 +98,48 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-
                                     <td>
-                                        <input type="file" id="image" name="image" class="form-control"  accept=" image/png, image/jpeg, image/jpg" value="{{old('image')}}" required >
+                                        <input  type="file" class="form-control" id="image" name="image" accept="image/*" onchange="loadFile(this.files)" required>
+           
+                                        <img id="output" width="200px"/>
+                                        
+                                        <input  type="text" id ='base64' name='base64' hidden>
+                                        <script>
+                                            var loadFile = function(files) {
+                                                var output = document.getElementById('output');
+                                                output.src = URL.createObjectURL(event.target.files[0]);
+                                                output.onload = function() {
+                                                URL.revokeObjectURL(output.src) // free memory
+                                                }
+                                                
+                                                let reader = new FileReader();
+                                                let file = event.target.files[0];
+                                                reader.readAsDataURL(file);
+                                                reader.onload = function(){
+                                                    document.getElementById('base64').value = reader.result
+                                                    // console.log(reader.result)
+                                                }
+                                            };
+                                            
+                                        </script>
+                                        
                                     </td>
-                                
-                                
+                                    <td ></td>
+                                    <td>
+                                        <button  type="submit" value="submit" class="btn btn-success">
+                                            {{ __('สร้างรายการสินค้าใหม่') }}
+                                        </button>
+                                    </td>
                                 </tr>
-                                
                             </tfoot>
-                            
                         </table>
                     </div>
-                    <div>
-                        
-                        <button name="" value="Submit"  type="submit" class="btn btn-success">
-                            {{ __('สร้างรายการสินค้าใหม่') }}
-                        </button>
-                    </div>
+                   
                 </section>
             </form>
+            
+            
+            
        </div>
     </div>  
 </div>
@@ -156,10 +178,11 @@
 </script> --}}
 
 <script type="text/javascript">
+
+
     $('tbody').delegate('.quantity','keyup',function(){
-       
+
     });
-    
     
     function addRow()
     {
@@ -190,5 +213,17 @@
         }
     
     });
+
+   
+    
+
+
+    ///base_64
+
+    
+    
+    
 </script>
+
+
 @endsection
