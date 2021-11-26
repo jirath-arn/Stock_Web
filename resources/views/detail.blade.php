@@ -3,21 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4 " >            
-          <div class="card" style=" max-height: 50px;">
+        <div class="col-xl-4 col-lg-4 col-sm-12 " >            
+          <div class="card" style="">
              
             @foreach ($data[3] as $item)
                 <img class="card-img-top" src="/img/test-shirt/{{$item->filename}}"    alt="Card image cap">
             @endforeach
             
-            @foreach ($data[3] as $key=>$item)
-             <div class="filterDiv card col-xl-3 col-lg-4 col-sm-6  ">
-                 <div class="card-body">                        
-                      <img class="card-img-top" src="/img/test-shirt/{{$item->filename}}" height="220px"   >
-                 </div>
-             </div>
-        
-            @endforeach
+            
               <div class="card-body ">
                 @can('product_add')
                 <a href="#" class="btn btn-primary col text-center my-1 " data-toggle="modal" data-target="#addModal" >เพิ่มจำนวนสินค้า</a>
@@ -65,8 +58,10 @@
                                       </tbody>
                               </table>
                           </div>
+                        
+                        </div>
                       </div>
-                      </div>
+                      
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                         <button type="button" class="btn btn-primary">บันทึก</button>
@@ -121,7 +116,7 @@
                                       </tbody>
                               </table>
                           </div>
-                      </div>
+                        </div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
@@ -136,11 +131,11 @@
         </div>
           
         
-        <div class="col-md-6">     
+        <div class="col-xl-8 col-lg-8 col-sm-12 ">     
           
-              <label>จำนวนคงเหลือทั้งหมด {{$data[2]}} ตัว</label>
+            <label>จำนวนคงเหลือทั้งหมด {{$data[2]}} ตัว</label>
             
-            <table class="table table-success">
+            <table class="table table-success ">
               <thead>
                 <tr>
                   <th scope="col">#</th>
