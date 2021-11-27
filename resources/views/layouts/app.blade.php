@@ -89,7 +89,7 @@
                         @endif
                         @else
                         <li class="nav-item">
-                            <a class="nav-link" href="/home">{{ __('รายการสินค้า') }}</a>
+                            <a class="nav-link" href="{{route('products.index')}}">{{ __('รายการสินค้า') }}</a>
                         </li>
  
                         @can('product_add')
