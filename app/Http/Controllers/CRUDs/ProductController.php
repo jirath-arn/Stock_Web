@@ -183,7 +183,7 @@ class ProductController extends Controller
 
         
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.show', $id);
     }
 
     public function destroy(Product $product)
