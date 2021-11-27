@@ -16,6 +16,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -56,7 +58,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white ">
             <div class="container mt-3">
-                <img id="logo" href="{{ url('/home') }}" src="/img/logo.png" height="40px" alt="logo" title="logo">
+                <img id="logo" href="{{route('products.index')}}" src="/img/logo.png" height="40px" alt="logo" title="logo">
 
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -101,6 +103,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/history">{{ __('ประวัติ') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard">{{ __('Dashboard') }}</a>
                         </li>
                         @endcan
 
