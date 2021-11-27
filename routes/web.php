@@ -8,9 +8,11 @@ use App\Http\Controllers\CRUDs\PermissionController;
 use App\Http\Controllers\CRUDs\HistoryController;
 use App\Http\Controllers\CRUDs\ProductController;
 use App\Http\Controllers\CRUDs\CategoryController;
+use App\Http\Controllers\CRUDs\DashboardController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NavbarController;
+
 
 // -----------------------------------------------------------------------------------
 
@@ -30,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/newcategory', [NavbarController::class, 'category'])->name('newcategory');
     Route::get('/history', [NavbarController::class, 'history'])->name('history');
     Route::get('/detail', [NavbarController::class, 'show'])->name('detail');
+    Route::get('/dashboard', [NavbarController::class, 'dashboard'])->name('dashboard');
 
     // Users
     Route::resource('users', UserController::class);
@@ -48,4 +51,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Categories
     Route::resource('categories', CategoryController::class);
+
+    // Dashboard
+    Route::resource('dashboard', DashboardController::class);
+
+    
+    
 });
