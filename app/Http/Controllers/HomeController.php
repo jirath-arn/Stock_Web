@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\CRUDs\ProductController;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
@@ -28,31 +28,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $product = Product::all();
-        $category = Category::all();
-        $image = Image::all();
-        $array_image = array();
-        $product_detail = ProductDetail::all();
-        $array_number = array();
-        $balance = 0;
-        foreach($product as $p){
-            foreach($product_detail as $d){
-                if($p->code_name == $d->product_code_name){
-                   $balance += $d->balance_amount;
-                }
-            }
-            array_push($array_number,$balance);
-            $balance = 0 ;
-
-            foreach($image as $i){
-                if($i->product_code_name == $p->code_name){
-                    array_push($array_image,$i->filename);
-                 }
-            }
-           
-        }
-        
-        $data = [$product,$array_number,$category,$array_image];
-        return view('home', compact('data'));
+        return redirect()->route('products.index');
     }
 }
