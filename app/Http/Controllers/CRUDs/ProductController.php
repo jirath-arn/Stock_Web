@@ -36,11 +36,16 @@ class ProductController extends Controller
 
             foreach($image as $i){
                 if($i->product_code_name == $p->code_name){
-                    array_push($array_image,$i->filename);
+                    
+                   
+                    $filename = $i->mime . $i->base64;
+                    
+                    array_push($array_image, $filename);
                  }
             }
            
         }
+        
         
         $data = [$product,$array_number,$category,$array_image];
         return view('home', compact('data'));
@@ -49,6 +54,7 @@ class ProductController extends Controller
     public function show($product)
     {
         $product_detail = ProductDetail::all()->where('product_code_name',$product);
+  
         $total_amount = 0;
         $balance_amount = 0;
         $Image = Image::all()->where('product_code_name',$product);
@@ -60,7 +66,7 @@ class ProductController extends Controller
             $balance_amount +=  $item->balance_amount;
         }
 
-        $data = [$product_detail,$total_amount,$balance_amount,$Image];
+        $data = [$product_detail,$total_amount,$balance_amount,$Image,$product];
         return view('detail',compact('data'));
     }
     
@@ -91,14 +97,14 @@ class ProductController extends Controller
         
         
         
-        dd(strlen($request->base64));
+        // dd(strlen($request->base64));
 
         $product = new Product();
         $product->code_name = $request->code_name;
         $product->product_name = $request->product_name;
         $product->category_id = $request->category;
         $product->wholesale_price = $request->price;
-        // $product->save();
+        $product->save();
         
         
         
@@ -109,31 +115,26 @@ class ProductController extends Controller
             $product_detail->product_size = $request->size[$i];
             $product_detail->balance_amount = $request->quantity[$i];
             $product_detail->total_amount = $request->quantity[$i];
+            $product_detail->save();
             
+           
         }
+        
 
         $image = new Image();
         $image->product_code_name = $request->code_name;
+         
+        
+        $mime = substr( $request->base64, 0, strpos($request->base64,",")+1);
+        $image->mime = $mime;   
 
-        if($request->hasFile($request->image)){
-            $file = $request->image;
-            $extension = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
-            $image->filename = $filename;
-            
-        }else{
-            $filename =' ';
-        }
-        
-        $image->size = 0;    
-        $file->move('img/test-shirt/', $filename);
-            
-        
-            
+        $base64 = substr( $request->base64,strpos($request->base64,",")+1,-1);
+        $image->base64 = $base64;
         
         
-        // $product_detail->save();
-        // $image->save();
+          
+        
+        $image->save();
         
         return redirect()->route('products.index');
     }
@@ -145,7 +146,44 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Code..
+        $request->validate([
+            'color_delete' => '',
+            'color_add' => '',
+            'size_delete' => '',
+            'size_add' => '',
+            'number_delete' => '',
+            'number_add' => '',
+            'select_list_delete' =>'',
+            'select_list_add' =>'',
+            'balance_delete' =>'',
+            'balance_add' =>'',
+            'id_delete' =>'',
+            'id_add' =>''
+        ]);
+        
+        
+        if($request->number_add == ''){
+           
+            $addProductDetail = ProductDetail::find($request->id_delete);
+            
+            $balance = $addProductDetail->balance_amount - (int)$request->number_delete;
+            
+            $addProductDetail->balance_amount = $balance;
+            $addProductDetail->save();
+            
+            
+        }else{
+            $addProductDetail = ProductDetail::find($request->id_add);
+            
+            $balance = $addProductDetail->balance_amount + (int)$request->number_add;
+            
+            $addProductDetail->balance_amount = $balance;
+            $addProductDetail->save();
+        }
+
+        
+
+        return redirect()->route('products.index');
     }
 
     public function destroy(Product $product)
