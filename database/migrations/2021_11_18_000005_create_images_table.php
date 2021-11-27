@@ -19,9 +19,8 @@ class CreateImagesTable extends Migration
             $table->string('product_code_name', 10);
             $table->foreign('product_code_name')->references('code_name')->on('products');
 
-            $table->string('filename');
-            $table->string('path')->unique();
-            $table->integer('size')->unsigned();
+            $table->mediumText('base64');
+            $table->string('mime');
             $table->timestamps();
         });
     }
