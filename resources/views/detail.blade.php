@@ -48,14 +48,14 @@
                                             <input id="balance_add" type="text" class="form-control " value=" " name="balance_add" hidden />
                                             <input id="id_add" type="number" class="form-control " value=" " name="id_add" hidden />
                                             <br>
-                                            <p id="balance" ></p>
+                                            <p id="balance_show_add" ></p>
                                             
                                             <script>
 
                                               function max_number_add(select){
                                                   var e = document.getElementById("select_list_add");
                                                  
-                                                  document.getElementById('balance').innerHTML = "จำนวนคงเหลือ " + e.value + " ตัว ";
+                                                  document.getElementById('balance_show_add').innerHTML = "จำนวนคงเหลือ " + e.value + " ตัว ";
                                                 //   console.log(e.value);
                                                   var t = select.options[select.selectedIndex].title;
 
@@ -125,15 +125,16 @@
                                             <input id="balance_delete" type="text" class="form-control " value=" " name="balance_delete" hidden />
                                             <input id="id_delete" type="number" class="form-control " value=" " name="id_delete" hidden />
                                             <br>
-                                            <p id="balance" ></p>
+                                            <p id="balance_show_delete" ></p>
                                             
                                             <script>
 
                                               
                                               function max_number_delete(select){
                                                   var e = document.getElementById("select_list_delete");
+                                                  
                                                   document.getElementById('number_delete').max  = e.value ;
-                                                  document.getElementById('balance').innerHTML = "จำนวนคงเหลือ " + e.value + " ตัว ";
+                                                  document.getElementById('balance_show_delete').innerHTML = "จำนวนคงเหลือ " + e.value + " ตัว ";
                                                 //   console.log(e.value);
                                                   var t = select.options[select.selectedIndex].title;
 
