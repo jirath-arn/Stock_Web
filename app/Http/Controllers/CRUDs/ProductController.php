@@ -3,71 +3,52 @@
 namespace App\Http\Controllers\CRUDs;
 
 use App\Http\Controllers\Controller;
-use App\Models\Image;
 use Illuminate\Http\Request;
 
 use Symfony\Component\HttpFoundation\Response;
 use Gate;
+use Illuminate\Support\Arr;
+
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\Category;
-use PhpParser\Node\Stmt\Foreach_;
-
+use App\Models\Image;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::all();
-        $category = Category::all();
-        $image = Image::all();
-        $array_image = array();
-        $product_detail = ProductDetail::all();
-        $array_number = array();
-        $balance = 0;
-        foreach($product as $p){
-            foreach($product_detail as $d){
-                if($p->code_name == $d->product_code_name){
-                   $balance += $d->balance_amount;
-                }
-            }
-            array_push($array_number,$balance);
-            $balance = 0 ;
+        abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-            foreach($image as $i){
-                if($i->product_code_name == $p->code_name){
-                    
-                   
-                    $filename = $i->mime . $i->base64;
-                    
-                    array_push($array_image, $filename);
-                 }
+        $categories = Category::all();
+        $products = Product::all();
+        $products_balance = array();
+
+        foreach($products as $key => $product) {
+            $balance = 0;
+            foreach($product->product_details as $key => $detail) {
+                $balance += $detail->balance_amount;
             }
-           
+            $products_balance = Arr::add($products_balance, $product->code_name, $balance);
         }
-        
-        
-        $data = [$product,$array_number,$category,$array_image];
-        return view('home', compact('data'));
+
+        return view('cruds.products.index', compact('products', 'categories', 'products_balance'));
     }
 
-    public function show($product)
+    public function show($code_name)
     {
-        $product_detail = ProductDetail::all()->where('product_code_name',$product);
-  
+        abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $product = Product::where('code_name', $code_name)->first();
+        $product_balance = 0;
         $total_amount = 0;
-        $balance_amount = 0;
-        $Image = Image::all()->where('product_code_name',$product);
-        foreach($product_detail as $item){
-            $total_amount +=  $item->total_amount;
-        }
-        
-        foreach($product_detail as $item){
-            $balance_amount +=  $item->balance_amount;
+
+        foreach($product->product_details as $key => $detail) {
+            $product_balance += $detail->balance_amount;
+            $total_amount += $detail->total_amount;
         }
 
-        $data = [$product_detail,$total_amount,$balance_amount,$Image,$product];
-        return view('detail',compact('data'));
+        return view('cruds.products.show', compact('product', 'product_balance', 'total_amount'));
     }
     
     public function create()
@@ -144,46 +125,33 @@ class ProductController extends Controller
         // abort_if(Gate::denies('product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $code_name)
     {
-        $request->validate([
-            'color_delete' => '',
-            'color_add' => '',
-            'size_delete' => '',
-            'size_add' => '',
-            'number_delete' => '',
-            'number_add' => '',
-            'select_list_delete' =>'',
-            'select_list_add' =>'',
-            'balance_delete' =>'',
-            'balance_add' =>'',
-            'id_delete' =>'',
-            'id_add' =>''
-        ]);
-        
-        
-        if($request->number_add == ''){
-           
-            $addProductDetail = ProductDetail::find($request->id_delete);
-            
-            $balance = $addProductDetail->balance_amount - (int)$request->number_delete;
-            
-            $addProductDetail->balance_amount = $balance;
-            $addProductDetail->save();
-            
-            
-        }else{
-            $addProductDetail = ProductDetail::find($request->id_add);
-            
-            $balance = $addProductDetail->balance_amount + (int)$request->number_add;
-            
-            $addProductDetail->balance_amount = $balance;
-            $addProductDetail->save();
+        if(empty($request->select_list_reduce) && empty($request->select_list_add)) {
+            return redirect(route('products.show', $code_name));
         }
 
-        
+        $id_detail = (isset($request->select_list_add)) ? $request->select_list_add : $request->select_list_reduce;
 
-        return redirect()->route('products.show', $id);
+        $product_detail = ProductDetail::find($id_detail);
+        $balance_amount = $product_detail->balance_amount;
+        $total_amount = $product_detail->total_amount;
+
+        if(isset($request->number_add)) {
+            $product_detail->balance_amount = $balance_amount + (int)$request->number_add;
+            $product_detail->total_amount = $total_amount + (int)$request->number_add;
+
+        } else {
+            if($balance_amount < (int)$request->number_reduce) {
+                return redirect(route('products.show', $code_name));
+            }
+
+            $product_detail->balance_amount = $balance_amount - (int)$request->number_reduce;
+        }
+
+        $product_detail->save();
+        
+        return redirect(route('products.show', $code_name));
     }
 
     public function destroy(Product $product)

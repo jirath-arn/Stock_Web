@@ -20,6 +20,6 @@ class ProductDetail extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_code_name');
+        return $this->belongsTo(Product::class, 'product_code_name', 'code_name');
     }
 }

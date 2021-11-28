@@ -21,12 +21,12 @@ class Product extends Model
 
     public function product_details()
     {
-        return $this->hasMany(ProductDetail::class);
+        return $this->hasMany(ProductDetail::class, 'product_code_name', 'code_name');
     }
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class, 'product_code_name', 'code_name');
     }
 
     public function category()
