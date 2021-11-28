@@ -22,7 +22,7 @@ use App\Http\Controllers\NavbarController;
 
 Route::redirect('/', '/login');
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 
 Route::group(['middleware' => ['auth']], function () {
     // Home (Old)
@@ -32,6 +32,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/history', [NavbarController::class, 'history'])->name('history');
     Route::get('/detail', [NavbarController::class, 'show'])->name('detail');
     Route::get('/dashboard', [NavbarController::class, 'dashboard'])->name('dashboard');
+    Route::get('/password', [NavbarController::class, 'password'])->name('password');
+    Route::get('/account', [NavbarController::class, 'account'])->name('account');
+
 
     // Users
     Route::resource('users', UserController::class);
