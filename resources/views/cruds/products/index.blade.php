@@ -29,7 +29,7 @@
                 {{-- List Product --}}
                 <div id="listProduct" class="row d-flex mt-5">
                     @foreach ($products as $key => $product)
-                        <div class="filterDiv card col-xl-3 col-lg-4 col-sm-6 mr-3 {{ $product->category->title }}">
+                        <div class="filterDiv card col-xl-3 col-lg-4 col-sm-6  {{ $product->category->title }}">
                             <div class="card-body">
                                 <a href="{{ route('products.show', $product->code_name) }}">
                                     <img class="card-img-top" src="{{ $product->images[0]->mime.$product->images[0]->base64 }}" height="220px">
