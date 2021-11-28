@@ -46,6 +46,34 @@
         .show {
             display: block;
         }
+
+        .my-custom-scrollbar {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+            
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+            border-radius: 25px;
+        }
+
+        #table_account::-webkit-scrollbar
+        {
+            width: 12px;
+            border-radius: 25px;
+            background-color: #00000018;
+        }
+
+        #table_account::-webkit-scrollbar-thumb
+        {
+            border-radius: 25px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: rgb(78, 78, 78);
+        }
+
+        
     </style>
 </head>
 
@@ -108,7 +136,11 @@
                                 @can('history_access')
                                     <a class="dropdown-item" href="/history">{{ __('ประวัติ') }}</a> {{-- ต้องแก้ --}}
                                 @endcan
-                                
+
+                                    <a class="dropdown-item" href="/account">{{ __('เพิ่ม Account ') }}</a> {{-- ต้องแก้ ยังไม่มี @can--}}
+
+                                    <a class="dropdown-item" href="/password">{{ __('เปลี่ยนรหัสผ่าน') }}</a> {{-- ต้องแก้ ยังไม่มี @can--}}
+
                                 <hr>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
