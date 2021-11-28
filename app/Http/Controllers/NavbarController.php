@@ -32,4 +32,16 @@ class NavbarController extends Controller
         return redirect()->route('dashboard.index');
     
     }
+
+    public function password()
+    {
+        return view('cruds.account.changePassword');
+    
+    }
+
+    public function account()
+    {
+        return view('cruds.account.account');
+    
+    }
 }
