@@ -17,6 +17,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/vendor/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
 
+    <!-- Main JS File -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Vendor JS Files -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
     <style>
         .chip {
             display: inline-block;
@@ -122,12 +130,6 @@
         </main>
     </div>
 
-    <!-- Main JS File -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Vendor JS Files -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    
 </body>
 </html>
