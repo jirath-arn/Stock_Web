@@ -65,7 +65,7 @@
             exportEnabled: true,
             animationEnabled: true,
             title:{
-                text: "สถิติ จำนวนคงเหลือ - จำนวนเดิม"
+                text: "จำนวนคงเหลือ - จำนวนเดิม"
             },
             subtitles: [{
                 text: "--------"
