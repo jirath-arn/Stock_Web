@@ -1,23 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="container-xl">
             <div class="row">
                 <div class="col-md-12">
-                    <h5>
-                        <b class="" style="color:black; margin: auto; font-size:22px;">{{"ประวัติของระบบ"}}</b>
 
-                        <svg class="svg-icon" viewBox="0 0 20 20" style="width: 25px; display: inline-flex; align-self: center; position: relative;">
-                            <path d="M17.211,3.39H2.788c-0.22,0-0.4,0.18-0.4,0.4v9.614c0,0.221,0.181,0.402,0.4,0.402h3.206v2.402c0,0.363,0.429,0.533,0.683,0.285l2.72-2.688h7.814c0.221,0,0.401-0.182,0.401-0.402V3.79C17.612,3.569,17.432,3.39,17.211,3.39M16.811,13.004H9.232c-0.106,0-0.206,0.043-0.282,0.117L6.795,15.25v-1.846c0-0.219-0.18-0.4-0.401-0.4H3.189V4.19h13.622V13.004z" />
-                        </svg>
-                    </h5>
+                    <h3>
+                        <b class="" style="color:black; margin: auto; ">{{"ประวัติของระบบ"}}</b>
+                        <i class="bi bi-clock-history"></i>
 
+                    </h3>
                     <div class="row">
-                        <div class="col-9"></div>
-                        <div class="col-3">
-                            <input type="text" id="search" class="form-control" onkeyup="Search()" placeholder="ค้นหารหัสสินค้า" title="ค้นหา">
+                        <div class="col-xl-8 col-lg-8 col-sm-6 "></div>
+                        <div class="col-xl-4 col-lg-4 col-sm-6 ">
+                       
+                            <input type="text" id="search" class="form-control " onkeyup="Search()"
+                                placeholder="ค้นหา ประวัติการทำงาน" title="ค้นหา">
+                                
+
                         </div>
                     </div>
 
@@ -26,7 +29,11 @@
                         <div class="col" style=" margin: auto;">
                             @foreach ($historyTransaction as $key => $history)
                                 <p class="chip">
-                                    {{ $history->detail }}
+
+                  
+
+                                    <i>{{$history->detail}}</i>
+
                                     <br>
                                     <i>{{ __('วันที่') }} {{ $history->created_at }} {{ __('น.') }}</i>
                                 </p>
