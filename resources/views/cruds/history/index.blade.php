@@ -28,15 +28,15 @@
                     <div id="table1" class="mt-3"
                         style=" width:100%; margin: auto; height:400px; overflow-y: scroll;  border-style: solid; border-width: medium; ">
                         <div class="col" style=" margin: auto;">
-                            @for ($i = 0; $i < 20; $i++) <p class="chip">
-                                <b>{{"USER"}}</b>
-                                <br>
-                                รหัส {{$i+1}} >> สีแดง:10 , สีเหลือง:10 , สีดำ:15
-                                <br>
-                                <i>วันที่ {{$i+1}} / 11 / 2021 เวลา 14:00 น.</i>
+                            @foreach ($historyTransaction as $key => $item)
+                                
+                                <p class="chip">
+                                   {{$item->detail}}
+                                    <br>
+                                    <i>วันที่ {{$item->created_at}}  น.</i>
                                 </p>
 
-                                @endfor
+                            @endforeach
                         </div>
                     </div>
                 </div>
