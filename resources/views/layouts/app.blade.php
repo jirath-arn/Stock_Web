@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,9 +22,12 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Vendor JS Files -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> --}}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
     <style>
         .chip {
@@ -51,7 +55,7 @@
             position: relative;
             height: 200px;
             overflow: auto;
-            
+
         }
 
         .table-wrapper-scroll-y {
@@ -59,30 +63,26 @@
             border-radius: 25px;
         }
 
-        #table_account::-webkit-scrollbar
-        {
+        #table_account::-webkit-scrollbar {
             width: 12px;
             border-radius: 25px;
             background-color: #00000018;
         }
 
-        #table_account::-webkit-scrollbar-thumb
-        {
+        #table_account::-webkit-scrollbar-thumb {
             border-radius: 25px;
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             background-color: rgb(78, 78, 78);
         }
-
-        
     </style>
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white ">
+        <nav class="navbar navbar-expand-md navbar-light bg-white">
             <div class="container mt-3">
                 <a href="{{ route('products.index') }}">
-                    <img id="logo" src="/img/logo.png" height="40px" alt="logo" title="logo">
+                    <img src="/img/logo.png" height="40px" alt="Stock Web" title="Stock Web">
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -100,12 +100,7 @@
 
                     {{-- Right Side Of Navbar --}}
                     <ul class="navbar-nav ml-auto">
-                        {{-- @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif --}}
-                        
+
                         @can('product_access')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('products.index') }}">{{ __('รายการสินค้า') }}</a>
@@ -114,7 +109,7 @@
 
                         @can('dashboard_access')
                             <li class="nav-item">
-                                <a class="nav-link" href="/dashboard">{{ __('Dashboard') }}</a> {{-- ต้องแก้ --}}
+                                <a class="nav-link" href="{{ route('dashboards.index') }}">{{ __('Dashboard') }}</a>
                             </li>
                         @endcan
 
@@ -126,24 +121,27 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @can('product_create')
-                                    <a class="dropdown-item" href="{{ route('products.create') }}">{{ __('เพิ่มสินค้า') }}</a>
+                                    <a class="dropdown-item" href="{{ route('products.create') }}">{{ __('เพิ่มสินค้า')}}</a>
                                 @endcan
 
                                 @can('category_access')
-                                    <a class="dropdown-item" href="{{ route('categories.index') }}">{{ __('เพิ่มหมวดหมู่') }}</a>
+                                    <a class="dropdown-item" href="{{ route('categories.index') }}">{{ __('หมวดหมู่') }}</a>
                                 @endcan
 
                                 @can('history_access')
-                                    <a class="dropdown-item" href="/history">{{ __('ประวัติ') }}</a> {{-- ต้องแก้ --}}
+                                    <a class="dropdown-item" href="{{ route('history.index') }}">{{ __('ประวัติ') }}</a>
                                 @endcan
 
-                                    <a class="dropdown-item" href="/account">{{ __('เพิ่ม Account ') }}</a> {{-- ต้องแก้ ยังไม่มี @can--}}
+                                @can('user_access')
+                                    <a class="dropdown-item" href="{{ route('users.index') }}">{{ __('บัญชีผู้ใช้') }}</a>
+                                @endcan
 
-                                    <a class="dropdown-item" href="/password">{{ __('เปลี่ยนรหัสผ่าน') }}</a> {{-- ต้องแก้ ยังไม่มี @can--}}
+                                @can('change_password')
+                                    <a class="dropdown-item" href="{{ route('profiles.index') }}">{{ __('เปลี่ยนรหัสผ่าน') }}</a>
+                                @endcan
 
                                 <hr>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('ออกจากระบบ') }}
                                 </a>
 
@@ -162,6 +160,6 @@
         </main>
     </div>
 
-    
+    @include ('layouts/footer')
 </body>
 </html>

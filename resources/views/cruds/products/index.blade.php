@@ -9,7 +9,9 @@
                     <div class="col-9">
                         {{-- Categories Filter --}}
                         <div id="myBtnContainer">
-                            <button class="btn active btn-primary" onclick="filterSelection('all')">{{ __('ทั้งหมด') }}</button>
+                            <button class="btn active btn-primary" onclick="filterSelection('all')">
+                                {{ __('ทั้งหมด')}}
+                            </button>
 
                             @foreach ($categories as $key => $category)
                                 <button class="btn btn-secondary" onclick="filterSelection('{{ $category->title }}')">
@@ -18,18 +20,30 @@
                             @endforeach
                         </div>
                     </div>
-                    
+
                     {{-- Search --}}
-                    <div class="col-3 ">
-                        <input type="text" id="search" class="form-control" 
-                            onkeyup="Search()" placeholder="ค้นหาสินค้า" title="ค้นหา">
+                    <div class="col-3">
+                        <input type="text" id="search" class="form-control" onkeyup="Search()" placeholder="ค้นหาสินค้า" title="ค้นหา">
                     </div>
                 </div>
 
+                @if(session()->has('message'))
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="alert alert-{{ session('alert') ?? 'info' }} alert-dismissible fade show" role="alert">
+                                <strong>{{ session('header') }}</strong> {{ session('message') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 {{-- List Product --}}
-                <div id="listProduct" class="row d-flex mt-5">
+                <div id="listProduct" class="row d-flex mt-4">
                     @foreach ($products as $key => $product)
-                        <div class="filterDiv card col-xl-3 col-lg-4 col-sm-6  {{ $product->category->title }}">
+                        <div class="filterDiv card col-xl-3 col-lg-4 col-sm-6 mr-1 mt-2 {{ $product->category->title }}">
                             <div class="card-body">
                                 <a href="{{ route('products.show', $product->code_name) }}">
                                     <img class="card-img-top" src="{{ $product->images[0]->mime.$product->images[0]->base64 }}" height="220px">
@@ -37,7 +51,7 @@
                                 <p class="mt-2" style="font-size: 16px; font-family: Sans-serif; font-style: normal;">
                                     <b>{{ __('รหัส') }} {{ $product->code_name }} ({{ $product->product_name }})</b>
                                     <br>
-                                    {{ __('จำนวนคงเหลือ') }} {{ $products_balance[$product->code_name] }} {{ __('ตัว') }}
+                                    {{ __('จำนวนคงเหลือ') }} {{ number_format($products_balance[$product->code_name]) }} {{ __('ตัว') }}
                                 </p>
                             </div>
                         </div>
@@ -48,7 +62,16 @@
     </div>
 </div>
 
-<script>
+<script type="application/javascript">
+    $(document).ready(function() {
+        // Show the alert.
+        setTimeout(function() {
+            $(".alert").alert('close');
+        }, 5000);
+    });
+</script>
+
+<script type="application/javascript">
     filterSelection("all")
 
     function filterSelection(c) {
@@ -70,7 +93,9 @@
         arr2 = name.split(" ");
 
         for (i = 0; i < arr2.length; i++) {
-            if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+            if (arr1.indexOf(arr2[i]) == -1) {
+                element.className += " " + arr2[i];
+            }
         }
     }
 

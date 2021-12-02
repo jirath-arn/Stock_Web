@@ -7,61 +7,70 @@ use Illuminate\Http\Request;
 
 use Symfony\Component\HttpFoundation\Response;
 use Gate;
+
 use App\Models\Category;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return view('admin.newCategory', compact('data'));
-    }
+        abort_if(Gate::denies('category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-    public function show(Category $category)
-    {
-        // abort_if(Gate::denies('category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-    }
-    
-    public function create()
-    {
-        // abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $categories = Category::all();
+
+        return view('cruds.categories.index', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => '',
+            'category_name' => 'required|max:100',
         ]);
 
         $category = new Category();
         $category->title = $request->category_name;
-
         $category->save();
-        return redirect()->route('categories.index');
+
+        return redirect(route('categories.index'))->with(['header' => 'สำเร็จ!', 'message' => 'สร้างหมวดหมู่ใหม่เรียบร้อยแล้ว', 'alert' => 'success']);
     }
 
     public function edit(Category $category)
     {
-        $data = Category::find($category);
-        return view('admin.editCategory',compact('data'));
+        abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('cruds.categories.edit', compact('category'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'new_category_name' => "",
-            
+            'new_category_name' => 'required|max:100|unique:categories,title',
         ]);
-        
-        $userEdit = Category::find($id);
-        $userEdit->title = $request->new_category_name;
-        $userEdit->save();
 
-        return redirect()->route('categories.index');
+        $category = Category::find($id);
+
+        $category_info = $category->title.'" เปลี่ยนเป็น "'.$request->new_category_name;
+
+        $category->title = $request->new_category_name;
+        $category->save();
+
+        return redirect(route('categories.index'))->with(['header' => 'สำเร็จ!', 'message' => 'แก้ไขหมวดหมู่จาก "'.$category_info.'" เรียบร้อยแล้ว', 'alert' => 'success']);
     }
 
     public function destroy(Category $category)
     {
-        //
+        abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $category_info = $category->title;
+
+        foreach($category->products as $key => $product) {
+            $product->product_details()->delete();
+            $product->images()->delete();
+            $product->delete();
+        }
+
+        $category->delete();
+        
+        return redirect(route('categories.index'))->with(['header' => 'สำเร็จ!', 'message' => 'ลบหมวดหมู่ "'.$category_info.'" เรียบร้อยแล้ว', 'alert' => 'success']);
     }
 }

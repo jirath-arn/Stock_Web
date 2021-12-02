@@ -27,11 +27,6 @@ class NavbarController extends Controller
     {
         return view('admin.newCategory');
     }
-    public function dashboard()
-    {
-        return redirect()->route('dashboard.index');
-    
-    }
 
     public function password()
     {

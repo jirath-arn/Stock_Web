@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Symfony\Component\HttpFoundation\Response;
 use Gate;
+
 use App\Models\HistoryAuthentication;
 use App\Models\HistoryTransaction;
 
@@ -14,7 +15,9 @@ class HistoryController extends Controller
 {
     public function index()
     {
-        // abort_if(Gate::denies('history_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('history_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('cruds.history.index');
     }
 
     public function show($id)

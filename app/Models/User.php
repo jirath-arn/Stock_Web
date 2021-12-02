@@ -8,8 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
-use App\Models\HistoryAuthentication;
-use App\Models\HistoryTransaction;
 
 class User extends Authenticatable
 {
@@ -26,7 +24,6 @@ class User extends Authenticatable
         'email',
         'password',
         'last_login_at',
-        'last_logout_at',
     ];
 
     /**
@@ -51,15 +48,5 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
-    }
-
-    public function history_authentications()
-    {
-        return $this->hasMany(HistoryAuthentication::class);
-    }
-
-    public function history_transactions()
-    {
-        return $this->hasMany(HistoryTransaction::class);
     }
 }
