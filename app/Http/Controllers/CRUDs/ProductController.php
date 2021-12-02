@@ -70,7 +70,7 @@ class ProductController extends Controller
     {   
         $request->validate([
             'product_name' => 'required|max:255',
-            'code_name' => 'required|max:10',
+            'code_name' => 'required|max:10|unique:products,code_name',
             'category' => 'required',
             'price' => 'required|min:0',
             'color' => 'required',
