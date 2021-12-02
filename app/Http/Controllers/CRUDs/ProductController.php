@@ -9,11 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Gate;
 use Illuminate\Support\Arr;
 use JavaScript;
+use Auth;
 
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\HistoryTransaction;
 
 class ProductController extends Controller
 {
@@ -108,6 +110,11 @@ class ProductController extends Controller
 
         $product_info = $request->code_name.' '.$request->product_name;
 
+        $auth = Auth::user();
+        $history = new HistoryTransaction();
+        $history->detail = $auth->name.' ทำการสร้างรายการสินค้าใหม่ "รหัส '.$product_info.'"';
+        $history->save();
+
         return redirect(route('products.index'))->with(['header' => 'สำเร็จ!', 'message' => 'สร้างรายการสินค้า "'.$product_info.'" เรียบร้อยแล้ว', 'alert' => 'success']);
     }
 
@@ -126,6 +133,9 @@ class ProductController extends Controller
         $balance_amount = $product_detail->balance_amount;
         $total_amount = $product_detail->total_amount;
 
+        $auth = Auth::user();
+        $history = new HistoryTransaction();
+
         if(isset($request->number_add)) {
             $number_add = (int)$request->number_add;
 
@@ -135,6 +145,8 @@ class ProductController extends Controller
 
             $product_detail->balance_amount = $balance_amount + $number_add;
             $product_detail->total_amount = $total_amount + $number_add;
+
+            $history->detail = $auth->name.' ทำการเพิ่มจำนวนสินค้า รหัส '.$product_detail->product_code_name.' รายละเอียด : '.$product_detail->product_color.' , '.$product_detail->product_size.' -> +'.number_format($number_add).' ตัว';
 
         } else {
             $number_reduce = (int)$request->number_reduce;
@@ -147,9 +159,12 @@ class ProductController extends Controller
             }
 
             $product_detail->balance_amount = $balance_amount - $number_reduce;
+
+            $history->detail = $auth->name.' ทำการลดจำนวนสินค้า รหัส '.$product_detail->product_code_name.' รายละเอียด : '.$product_detail->product_color.' , '.$product_detail->product_size.' -> -'.number_format($number_reduce).' ตัว';
         }
 
         $product_detail->save();
+        $history->save();
         
         return redirect(route('products.show', $code_name))->with(['header' => 'สำเร็จ!', 'message' => 'ทำรายการเรียบร้อยแล้ว', 'alert' => 'success']);
     }
@@ -159,6 +174,11 @@ class ProductController extends Controller
         abort_if(Gate::denies('product_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $product_info = 'รหัส '.$product->code_name.' ('.$product->product_name.')';
+
+        $auth = Auth::user();
+        $history = new HistoryTransaction();
+        $history->detail = $auth->name.' ทำการลบรายการสินค้า "'.$product_info.'"';
+        $history->save();
 
         $product->product_details()->delete();
         $product->images()->delete();

@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Gate;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\HistoryTransaction;
 
 class UserController extends Controller
 {
@@ -40,6 +42,11 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
+        $auth = Auth::user();
+        $history = new HistoryTransaction();
+        $history->detail = $auth->name.' ทำการสร้างบัญชีผู้ใช้ใหม่ "'.$request->name.'"';
+        $history->save();
+
         return redirect(route('users.index'))->with(['header' => 'สำเร็จ!', 'message' => 'เพิ่มบัญชีผู้ใช้ "'.$request->name.'" เรียบร้อยแล้ว', 'alert' => 'success']);
     }
 
@@ -62,6 +69,11 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
+        $auth = Auth::user();
+        $history = new HistoryTransaction();
+        $history->detail = $auth->name.' ทำการรีเซ็ตรหัสผ่านบัญชีผู้ใช้ "'.$user->name.'"';
+        $history->save();
+
         return redirect(route('users.index'))->with(['header' => 'สำเร็จ!', 'message' => 'รีเซ็ตรหัสผ่าน "'.$user->name.'" เรียบร้อยแล้ว', 'alert' => 'success']);
     }
 
@@ -70,6 +82,11 @@ class UserController extends Controller
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $user_info = $user->name;
+
+        $auth = Auth::user();
+        $history = new HistoryTransaction();
+        $history->detail = $auth->name.' ทำการลบบัญชีผู้ใช้ "'.$user->name.'"';
+        $history->save();
 
         $user->delete();
         
