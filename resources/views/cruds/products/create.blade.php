@@ -92,11 +92,68 @@
                             <tfoot>
                                 <tr>
                                     <td>
-                                        <input type="file" class="form-control" id="image" name="image" accept="image/*" onchange="loadFile(this.files)" required>
+                                        <input type="file" class="form-control" id="image" name="image" accept="image/*" onchange="process()" required>
                                         <img id="output" width="200px">
-                                        <input type="text" id='base64' name='base64' hidden>
+                                        {{-- <img id="input" width="200px"> --}}
+                                        <input  id='base64' name='base64' hidden>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        {{-- <script >
+                                            var loadFile = function(files) {
+                                                var output = document.getElementById('output');
+                                                output.src = URL.createObjectURL(event.target.files[0]);
+                                                output.onload = function() {
+                                                    URL.revokeObjectURL(output.src); // Free Memory.
+                                                }
+                                                
+                                                
+                                                let reader = new FileReader();
+                                                let file = event.target.files[0];
+                                                reader.readAsDataURL(file);
+                                                reader.onload = function() {
+                                                    document.getElementById('base64').value = reader.result;
+                                                }
+                                            };
+                                            
+                                        </script> --}}
+
+                                        <script>
+                                            function process() {
+                                            const file = document.querySelector("#image").files[0];
+
+                                            if (!file) return;
+
+                                            const reader = new FileReader();
+
+                                            reader.readAsDataURL(file);
+
+                                            reader.onload = function (event) {
+                                                const imgElement = document.createElement("img");
+                                                imgElement.src = event.target.result;
+                                                // document.querySelector("#input").src = event.target.result;
+
+                                                imgElement.onload = function (e) {
+                                                const canvas = document.createElement("canvas");
+                                                const MAX_WIDTH = 400;
+
+                                                const scaleSize = MAX_WIDTH / e.target.width;
+                                                canvas.width = MAX_WIDTH;
+                                                canvas.height = e.target.height * scaleSize;
+
+                                                const ctx = canvas.getContext("2d");
+
+                                                ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
+                                                // console.log(e.target);
+                                                const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg");
+                                                console.log(srcEncoded);
+                                                // you can send srcEncoded to the server
+                                                document.querySelector("#output").src = srcEncoded;
+                                                document.getElementById('base64').value = srcEncoded;
+                                                };
+                                            };
+                                            }
+                                        </script>
+                                    </td>
                                     <td>
                                         <button type="submit" value="submit" class="btn btn-success">
                                             {{ __('สร้างรายการสินค้าใหม่') }}
@@ -113,22 +170,6 @@
     </div>
 </div>
 
-<script type="application/javascript">
-    var loadFile = function(files) {
-        var output = document.getElementById('output');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function() {
-            URL.revokeObjectURL(output.src); // Free Memory.
-        }
-        
-        let reader = new FileReader();
-        let file = event.target.files[0];
-        reader.readAsDataURL(file);
-        reader.onload = function() {
-            document.getElementById('base64').value = reader.result;
-        }
-    };
-</script>
 
 <script type="application/javascript">
     function addRow() {
