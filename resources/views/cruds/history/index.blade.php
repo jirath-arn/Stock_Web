@@ -32,10 +32,7 @@
 
                   
 
-                                    <i>{{$history->detail}}</i>
-
-                                    <br>
-                                    <i>{{ __('วันที่') }} {{ $history->created_at }} {{ __('น.') }}</i>
+                                    <i>{{$history->detail}}<br> {{ __('วันที่') }} {{ $history->created_at }} {{ __('น.') }}</i>
                                 </p>
                             @endforeach
                         </div>
