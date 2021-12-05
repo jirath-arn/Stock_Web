@@ -145,6 +145,43 @@
         <div class="col-xl-6 col-lg-6 col-sm-12">
             <h3 class="mt-3">{{ __('รหัส') }} {{ $product->code_name }} ({{ $product->product_name }})</h3>
             <label>{{ __('หมวดหมู่ : ') }} {{ $product->category->title }}</label><br>
+            <label > {{ __('ราคาส่ง : ') }} {{ $product->wholesale_price }} {{ __('บาท') }} @can('product_edit') <a class="text-decoration-none" data-toggle="modal" data-target="#editpriceModal"><i class="bi bi-pencil-square"></i></a> @endcan </label><br>
+            <form action="" method="POST" id="editprice_form" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                {{-- Add Modal --}}
+                <div class="modal fade" id="editpriceModal" tabindex="-1" role="dialog" aria-labelledby="editpriceModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{ __('แก้ไขราคาส่ง') }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    {{-- price --}}
+                                    <label for="edit_price_old" >{{ __('ราคาเดิม') }} </label>
+                                    <input class="form-control text-success"  value="{{$product->wholesale_price}}" disabled><br>
+
+                                    <label for="edit_price_new" >{{ __('ราคาใหม่') }}</label>
+                                    <input id="new_price" min="0" type="number" class="form-control" name="new_price">
+                                    
+                                
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('ยกเลิก') }}</button>
+                                    <button type="submit" class="btn btn-success">{{ __('บันทึก') }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <label>{{ __('จำนวนคงเหลือทั้งหมด') }} {{ number_format($product_balance) }} {{ __('ตัว') }}</label><br>
             @can('product_delete')
                 <form action="{{ route('products.destroy', $product->code_name) }}" method="POST" onsubmit='return confirm("ต้องการที่จะลบ \"{{ __("รหัส") }} {{ $product->code_name }}\" ใช่ไหม ?");' style="display: inline-block;">
