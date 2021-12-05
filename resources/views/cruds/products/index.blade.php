@@ -6,15 +6,15 @@
         <div class="col-md-11">
             <div class="container-wrap">
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-7 ">
                         {{-- Categories Filter --}}
                         <div id="myBtnContainer">
-                            <button class="btn active btn-primary" onclick="filterSelection('all')">
+                            <button class="btn active btn-primary btn-sm mt-1" onclick="filterSelection('all')">
                                 {{ __('ทั้งหมด')}}
                             </button>
 
                             @foreach ($categories as $key => $category)
-                                <button class="btn btn-secondary" onclick="filterSelection('{{ $category->title }}')">
+                                <button class="btn btn-secondary btn-sm mt-1" onclick="filterSelection('{{ $category->title }}')">
                                     {{ $category->title }}
                                 </button>
                             @endforeach
@@ -22,7 +22,7 @@
                     </div>
 
                     {{-- Search --}}
-                    <div class="col-3">
+                    <div class="col-5">
                         <input type="text" id="search" class="form-control" onkeyup="Search()" placeholder="ค้นหาสินค้า" title="ค้นหา">
                     </div>
                 </div>
@@ -52,6 +52,8 @@
                                     <b>{{ __('รหัส') }} {{ $product->code_name }} ({{ $product->product_name }})</b>
                                     <br>
                                     {{ __('จำนวนคงเหลือ') }} {{ number_format($products_balance[$product->code_name]) }} {{ __('ตัว') }}
+                                    <br>
+                                    <p class="text-primary text-right"><i class="bi bi-tags-fill"></i> {{ __('ราคา') }} {{ number_format($product->wholesale_price) }} {{ __('บาท') }}</p>
                                 </p>
                             </div>
                         </div>
