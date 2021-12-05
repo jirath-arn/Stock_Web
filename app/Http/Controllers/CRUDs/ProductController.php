@@ -88,7 +88,7 @@ class ProductController extends Controller
         $product->save();
         
         // Add Product_Detail.
-        for($i = 0; $i < count($request->color); $i++){
+        for($i = 0; $i < count($request->color); $i++) {
             $product_detail = new ProductDetail();
             $product_detail->product_code_name = $request->code_name;
             $product_detail->product_color = $request->color[$i];
